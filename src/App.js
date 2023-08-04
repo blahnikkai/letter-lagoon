@@ -4,7 +4,7 @@ import LifeDisplay from './LifeDisplay'
 import SequenceDisplay from './SequenceDisplay'
 import StartButton from './StartButton'
 import TimerBar from './TimerBar'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 
 const min_seq_cnt = 500
 const starting_life_cnt = 3
