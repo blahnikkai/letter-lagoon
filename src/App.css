@@ -1,5 +1,18 @@
 .App {
-    padding: 10em;
+    padding: 5em;
     height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--clr-dark);
+}
+
+#seq_display {
+    color: white;
+}
+
+#answer_box {
+
 }

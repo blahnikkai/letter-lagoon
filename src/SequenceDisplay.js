@@ -1,5 +1,7 @@
+import './SequenceDisplay.css'
+
 export default function SequenceDisplay({sequence}) {
     return (
-        <div>{sequence}</div>
+        <p id='seq_txt'>{sequence}</p>
     )
 }
