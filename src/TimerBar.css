@@ -1,0 +1,15 @@
+#timer_bar {
+    background-color:var(--clr-red);
+    width: 100%;
+    height: 10px;
+}
+
+.shrink_anim {
+    animation: shrink 4s linear;
+}
+
+@keyframes shrink {
+    to {
+        width: 0;
+    }
+}

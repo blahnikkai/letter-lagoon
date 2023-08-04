@@ -1,7 +1,10 @@
 * {
     box-sizing: border-box;
-    --clr-dark: #060e21;
-    --clr-light: #ffffff;
+    --clr-dark: #121212;
+    --clr-light: #ddd;
+    --clr-light-gray: #ccc;
+    --clr-gray: #a8a8a8;
+    --clr-red: #b80404;
 }
 
 body {

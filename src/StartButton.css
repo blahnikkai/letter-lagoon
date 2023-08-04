@@ -1,0 +1,14 @@
+#start_btn {
+    background-color: var(--clr-light);
+    font-size: 3em;
+    padding: .5em;
+    border-radius: .5em;
+}
+
+#start_btn:hover {
+    background-color: var(--clr-light-gray)
+}
+
+#start_btn:active {
+    background-color: var(--clr-gray)
+}

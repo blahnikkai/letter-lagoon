@@ -1,7 +1,11 @@
 import './SequenceDisplay.css'
 
-export default function SequenceDisplay({sequence}) {
+export default function SequenceDisplay({playing, sequence}) {
     return (
-        <p id='seq_txt'>{sequence}</p>
+        <p
+            id='seq_txt'
+            style={playing ? {display: ''} : {display: 'none'}}>
+            {sequence}
+        </p>
     )
 }

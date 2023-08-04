@@ -1,8 +1,11 @@
 import './AnswerBox.css'
 
-export default function AnswerBox({answer, set_answer, submit_answer}) {
+export default function AnswerBox({playing, answer, set_answer, submit_answer}) {
     return (
-        <form onSubmit={(e) => submit_answer(e)}>
+        <form
+            autoComplete='off'
+            onSubmit={(e) => submit_answer(e)}
+            style={playing ? {display: ''} : {display: 'none'}}>
             <input 
                 id='ans_txt_box'
                 type='text'
