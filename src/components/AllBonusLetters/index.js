@@ -1,10 +1,11 @@
-import BonusLetter from './BonusLetter'
+import BonusLetter from '../BonusLetter'
 import './AllBonusLetters.css'
 
-export default function AllBonusLetters({letters, bonus_letters}) {
+export default function AllBonusLetters({playing, letters, bonus_letters}) {
     return (
         <ul
             id='bonus_letters_container'
+            style={playing ? {display: ''} : {display: 'none'}}
         >
             {letters.map((letter, ind) => 
                 <BonusLetter

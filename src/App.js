@@ -1,11 +1,11 @@
 import {useState} from 'react'
-import AllBonusLetters from './AllBonusLetters'
-import AnswerBox from './AnswerBox'
-import FeedbackIcon from './FeedbackIcon'
-import LifeDisplay from './LifeDisplay'
-import SequenceDisplay from './SequenceDisplay'
-import StartButton from './StartButton'
-import TimerBar from './TimerBar'
+import AllBonusLetters from './components/AllBonusLetters'
+import AnswerBox from './components/AnswerBox'
+import FeedbackIcon from './components/FeedbackIcon'
+import LifeDisplay from './components/LifeDisplay'
+import SequenceDisplay from './components/SequenceDisplay'
+import StartButton from './components/StartButton'
+import TimerBar from './components/TimerBar'
 import './App.css'
 
 const min_seq_cnt = 1000
@@ -139,6 +139,7 @@ export default function App() {
                 set_status={set_status}
             />
             <AllBonusLetters
+                playing={playing}
                 letters={[...letters]}
                 bonus_letters={bonus_letters}
             />
