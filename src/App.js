@@ -1,17 +1,23 @@
-import './App.css'
+import {useState} from 'react'
+import AllBonusLetters from './AllBonusLetters'
 import AnswerBox from './AnswerBox'
+import FeedbackIcon from './FeedbackIcon'
 import LifeDisplay from './LifeDisplay'
 import SequenceDisplay from './SequenceDisplay'
 import StartButton from './StartButton'
 import TimerBar from './TimerBar'
-import {useState} from 'react'
+import './App.css'
 
-const min_seq_cnt = 500
+const min_seq_cnt = 1000
 const starting_life_cnt = 3
-const letters = 'abcdefghijklmnopqrstuv'
-const response = await fetch('/ospd.txt')
+const letters = 'abcdefghijklmnopqrstuvwxyz'
+const response = await fetch('/enable1.txt')
 const words = await response.text()
 const word_lst = words.split('\n')
+const two_let_seq_cnt = JSON.parse(await fetch('/two_let_seq.json')
+                                            .then((val) => val.text()))
+const three_let_seq_cnt = JSON.parse(await fetch('/three_let_seq.json')
+                                            .then((val) => val.text()))
 
 export default function App() {
     const [answer, set_answer] = useState('')
@@ -20,28 +26,46 @@ export default function App() {
     const [used_words, set_used_words] = useState(null)
     const [lives, set_lives] = useState(0)
     const [playing, set_playing] = useState(false)
+    const [status, set_status] = useState(0)
+    const [bonus_letters, set_bonus_letters] = useState(new Set())
 
+    const decode = (inds) => {
+        return inds.reduce((val, i) => val + letters[i], '')
+    }
     const generate_sequence = () => {
-        const generate_letter = () =>
-            letters[Math.floor(Math.random() * letters.length)]
-        let poss_seq = generate_letter() + generate_letter()
-        while (get_seq_cnt(poss_seq) < min_seq_cnt)
-            poss_seq = generate_letter() + generate_letter()
-        set_sequence(poss_seq)
+        const generate_num = () => Math.floor(Math.random() * letters.length)
+        const generate_enc = () => {
+            let enc = [generate_num(), generate_num()]
+            const three_let_prob = .5
+            if(Math.random() > three_let_prob)
+                enc.push(generate_num())
+            return enc
+        }
+        const get_enc_cnt = (enc) => {
+            let cnt = 0
+            if(enc.length === 2)
+                cnt = two_let_seq_cnt[enc[0]][enc[1]]
+            else
+                cnt = three_let_seq_cnt[enc[0]][enc[1]][enc[2]]
+            // console.log(cnt, ': ', decode(enc))
+            return cnt
+        }
+        let poss_enc = generate_enc()
+        while (get_enc_cnt(poss_enc) < min_seq_cnt)
+            poss_enc = generate_enc()
+        set_sequence(decode(poss_enc))
     }
     const fail = () => {
         set_lives(lives - 1)
-        if(lives === 1) {
+        if(lives === 1)
             end_game()
-        }
-        else {
+        else
             reset()
-        }
     }
     const reset = () => {
+        set_resetting(true)
         set_answer('')
         generate_sequence()
-        set_resetting(true)
     }
     const submit_answer = (e) => {
         e.preventDefault()
@@ -49,26 +73,36 @@ export default function App() {
         const valid =
             word_lst.includes(lower_ans) && lower_ans.includes(sequence)
         set_answer('')
-        if(!valid)
-            return
-        if(!used_words.includes(lower_ans)) {
-            console.log(used_words)
+        // answer is invalid
+        if(!valid) {
+            set_status(2)
+        }
+        // answer is valid, but already used
+        else if(used_words.includes(lower_ans)) {
+            set_status(3)
+        }
+        // answer is correct
+        else {
+            let new_bonus_letters = new Set(bonus_letters)
+            for(const letter of lower_ans)
+                new_bonus_letters.add(letter)
+            console.log(new_bonus_letters)
+            set_bonus_letters(new_bonus_letters)
+            if(new_bonus_letters.size === 26) {
+                set_lives(lives + 1)
+                set_bonus_letters(new Set())
+            }
             set_used_words([...used_words, lower_ans])
             reset()
+            set_status(1)
         }
-    }
-    const get_seq_cnt = (poss_seq) => {
-        const cnt = word_lst.reduce((accum, word) => {
-            return accum + (word.includes(poss_seq) ? 1 : 0)
-        }, 0)
-        console.log(poss_seq, cnt)
-        return cnt
     }
     const start_game = () => {
         set_lives(starting_life_cnt)
         set_used_words([])
         set_resetting(false)
         set_playing(true)
+        set_bonus_letters(new Set())
         reset()
     }
     const end_game = () => {
@@ -99,6 +133,14 @@ export default function App() {
             <StartButton
                 playing={playing}
                 start_game={start_game}
+            />
+            <FeedbackIcon
+                status={status}
+                set_status={set_status}
+            />
+            <AllBonusLetters
+                letters={[...letters]}
+                bonus_letters={bonus_letters}
             />
         </div>
     )

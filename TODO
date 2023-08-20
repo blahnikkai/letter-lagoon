@@ -8,6 +8,8 @@ Features
 * show score when game done
 * track high score
 * show high score when game done
+* add difficulty settings
+* add difficulty progression
 
 General
 * refactor files into components folders
