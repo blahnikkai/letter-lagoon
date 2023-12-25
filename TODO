@@ -1,9 +1,5 @@
 Features
-* add extra life gained when every letter is used
-* add feedback (lock?) when valid word has been previously used
 * add feedback when time runs out
-* add feedback when invalid answer
-* add feedback when correct answer
 * track score
 * show score when game done
 * track high score
@@ -12,5 +8,4 @@ Features
 * add difficulty progression
 
 General
-* refactor files into components folders
 * refactor state and behavior of components

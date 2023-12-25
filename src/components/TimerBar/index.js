@@ -1,38 +1,36 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import './TimerBar.css'
 
 
-export default function TimerBar({playing, resetting, set_resetting, fail}) {
-    const [timeout_id, set_timeout_id] = useState(null)
+export default function TimerBar({resetting, set_resetting, time_run_out}) {
+    const [timeout_id, set_timeout_id] = useState(0)
+    const timer_bar = useRef(null);
 
     const restart_timeout = () => {
-        console.log('restarting timeout')
-        if(timeout_id !== null)
+        if(timeout_id !== null) {
+            console.log(`clearing ${timeout_id}`)
             clearTimeout(timeout_id)
+        }
         set_timeout_id(setTimeout(() => {
-            fail()
+            time_run_out()
         }, 4000))
     }
 
     useEffect(() => {
-        return () => {
-            clearTimeout(timeout_id)
-        }
-    }, [])
-
-    useEffect(() => {
         if(resetting) {
-            const timer_bar = document.getElementById('timer_bar')
-            timer_bar.classList.remove('shrink_anim')
-            setTimeout(() => timer_bar.classList.add('shrink_anim'), 10)
+            timer_bar.current.classList.remove('shrink_anim');
+            void timer_bar.current.offsetWidth; // Trigger a reflow
+            timer_bar.current.classList.add('shrink_anim');
             restart_timeout()
             set_resetting(false)
         }
-    }, [resetting])
+    }, [resetting, timeout_id])
+
     return (
         <div 
             id='timer_bar'
-            style={playing ? {display: ''} : {display: 'none'}}>
+            ref={timer_bar}
+        >
         </div>
     )
 }
