@@ -1,4 +1,7 @@
 import {useState} from 'react'
+import {load_word_set, 
+        load_two_let_seq_cnt, 
+        load_three_let_seq_cnt} from './functions/file_loader'
 import AllBonusLetters from './components/AllBonusLetters'
 import AnswerBox from './components/AnswerBox'
 import FeedbackIcon from './components/FeedbackIcon'
@@ -13,13 +16,10 @@ const MIN_SEQ_CNT = 1000
 const STARTING_LIFE_CNT = 3
 const THREE_LET_PROB = .1
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz'
-const response = await fetch('/enable1.txt')
-const words = await response.text()
-const word_lst = words.split('\n')
-const two_let_seq_cnt = JSON.parse(await fetch('/two_let_seq.json')
-                                            .then((val) => val.text()))
-const three_let_seq_cnt = JSON.parse(await fetch('/three_let_seq.json')
-                                            .then((val) => val.text()))
+
+const word_set = await load_word_set()
+const two_let_seq_cnt = await load_two_let_seq_cnt()
+const three_let_seq_cnt = await load_three_let_seq_cnt()
 
 export default function App() {
     const [answer, set_answer] = useState('')
@@ -85,7 +85,7 @@ export default function App() {
     const submit_answer = (e) => {
         e.preventDefault()
         const lower_ans = answer.toLowerCase()
-        const valid = word_lst.includes(lower_ans) && lower_ans.includes(sequence)
+        const valid = word_set.has(lower_ans) && lower_ans.includes(sequence)
         set_answer('')
         // answer is invalid
         if(!valid) {
