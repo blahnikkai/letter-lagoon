@@ -9,8 +9,9 @@ import StartButton from './components/StartButton'
 import TimerBar from './components/TimerBar'
 import './App.css'
 
-const min_seq_cnt = 1000
-const starting_life_cnt = 3
+const MIN_SEQ_CNT = 1000
+const STARTING_LIFE_CNT = 3
+const THREE_LET_PROB = .1
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 const response = await fetch('/enable1.txt')
 const words = await response.text()
@@ -35,6 +36,7 @@ export default function App() {
     const [status, set_status] = useState(0)
     const [bonus_letters, set_bonus_letters] = useState(new Set())
     const [score, set_score] = useState(0)
+    const [high_score, set_high_score] = useState(0)
 
     const decode = (inds) => {
         return inds.reduce((val, i) => val + LETTERS[i], '')
@@ -42,11 +44,8 @@ export default function App() {
     const generate_sequence = () => {
         const generate_num = () => Math.floor(Math.random() * LETTERS.length)
         const generate_enc = () => {
-            // two letter sequence
-            let enc = [generate_num(), generate_num()]
-            // fifty percent chance of three letter sequence
-            const three_let_prob = .5
-            if(Math.random() > three_let_prob)
+            let enc = []
+            for(let i = 0; i < leng; ++i)
                 enc.push(generate_num())
             return enc
         }
@@ -59,9 +58,12 @@ export default function App() {
             // console.log(cnt, ': ', decode(enc))
             return cnt
         }
-        let poss_enc = generate_enc()
-        while (get_enc_cnt(poss_enc) < min_seq_cnt)
-            poss_enc = generate_enc()
+        let leng = 2
+        if(Math.random() < THREE_LET_PROB)
+            leng = 3
+        let poss_enc = generate_enc(leng)
+        while(get_enc_cnt(poss_enc) < MIN_SEQ_CNT)
+            poss_enc = generate_enc(leng)
         set_sequence(decode(poss_enc))
     }
     const fail = () => {
@@ -113,7 +115,8 @@ export default function App() {
         }
     }
     const start_game = () => {
-        set_lives(starting_life_cnt)
+        set_lives(STARTING_LIFE_CNT)
+        set_score(0)
         set_used_words([])
         set_playing(true)
         set_bonus_letters(new Set())

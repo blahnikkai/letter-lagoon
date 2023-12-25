@@ -8,7 +8,6 @@ export default function TimerBar({resetting, set_resetting, time_run_out}) {
 
     const restart_timeout = () => {
         if(timeout_id !== null) {
-            console.log(`clearing ${timeout_id}`)
             clearTimeout(timeout_id)
         }
         set_timeout_id(setTimeout(() => {

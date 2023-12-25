@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {FaCheck, FaXmark, FaLock, FaClock} from 'react-icons/fa6';
 import {IconContext} from 'react-icons';
 import './FeedbackIcon.css'
@@ -9,17 +9,18 @@ import './FeedbackIcon.css'
 // FaCheck
 export default function FeedbackIcon({status, set_status}) {
     // makes icon disappear after one second
-    let time_id
+    const [timeout_id, set_timeout_id] = useState(0)
+
     useEffect(() => {
         if(status !== 0) {
-            clearTimeout(time_id)
-            time_id = setTimeout(() => {
+            clearTimeout(timeout_id)
+            set_timeout_id(setTimeout(() => {
                 set_status(0)
-            }, 1000)
+            }, 1000))
         }
-        // return () => {
-        //     clearTimeout(time_id)
-        // }
+        return () => {
+            clearTimeout(timeout_id)
+        }
     }, [status])
 
     if(status === 0)

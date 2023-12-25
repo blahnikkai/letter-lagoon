@@ -3,3 +3,7 @@
     color: var(--clr-light);
     margin: 1em;
 }
+
+#life_disp > * {
+    margin: 0 .1em;
+}

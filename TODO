@@ -1,11 +1,10 @@
 Features
-* add feedback when time runs out
-* track score
 * show score when game done
 * track high score
 * show high score when game done
 * add difficulty settings
 * add difficulty progression
+* Fix strict mode double rendering problem
 
 General
 * refactor state and behavior of components
