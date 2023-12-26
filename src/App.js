@@ -8,12 +8,11 @@ import FeedbackIcon from './components/FeedbackIcon'
 import LifeDisplay from './components/LifeDisplay'
 import SequenceDisplay from './components/SequenceDisplay'
 import ScoreDisplay from './components/ScoreDisplay'
-import StartButton from './components/StartButton'
+import StartScreen from './components/StartScreen'
 import TimerBar from './components/TimerBar'
 import './App.css'
 
-const MIN_SEQ_CNT = 1000
-const STARTING_LIFE_CNT = 3
+const STARTING_LIFE_CNT = 1
 const THREE_LET_PROB = .1
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -28,6 +27,7 @@ export default function App() {
     const [used_words, set_used_words] = useState(null)
     const [lives, set_lives] = useState(0)
     const [playing, set_playing] = useState(false)
+    const [first_time, set_first_time] = useState(true)
     // status
     // 1 = ans is correct
     // 2 = invalid ans
@@ -37,9 +37,26 @@ export default function App() {
     const [bonus_letters, set_bonus_letters] = useState(new Set())
     const [score, set_score] = useState(0)
     const [high_score, set_high_score] = useState(0)
+    const [new_high_score, set_new_high_score] = useState(false)
+    const [difficulty, set_difficulty] = useState('dynamic')
 
     const decode = (inds) => {
         return inds.reduce((val, i) => val + LETTERS[i], '')
+    }
+    const calc_min_seq_cnt = () => {
+        if(difficulty === 'easy') {
+            return 2000;
+        }
+        else if(difficulty === 'medium') {
+            return 1000;
+        }
+        else if(difficulty === 'hard') {
+            return 500;
+        }
+        else if(difficulty === 'dynamic') {
+            return 4000 * Math.pow(.5, score / 10)
+        }
+        throw new Error('invalid difficulty')
     }
     const generate_sequence = () => {
         const generate_num = () => Math.floor(Math.random() * LETTERS.length)
@@ -62,7 +79,8 @@ export default function App() {
         if(Math.random() < THREE_LET_PROB)
             leng = 3
         let poss_enc = generate_enc(leng)
-        while(get_enc_cnt(poss_enc) < MIN_SEQ_CNT)
+        const min_seq_cnt = calc_min_seq_cnt()
+        while(get_enc_cnt(poss_enc) < calc_min_seq_cnt())
             poss_enc = generate_enc(leng)
         set_sequence(decode(poss_enc))
     }
@@ -115,6 +133,7 @@ export default function App() {
         }
     }
     const start_game = () => {
+        set_first_time(false)
         set_lives(STARTING_LIFE_CNT)
         set_score(0)
         set_used_words([])
@@ -123,6 +142,11 @@ export default function App() {
         reset()
     }
     const end_game = () => {
+        set_new_high_score(false)
+        if(score > high_score) {
+            set_high_score(score)
+            set_new_high_score(true)
+        }
         set_status(0)
         set_playing(false)
     }
@@ -159,8 +183,14 @@ export default function App() {
                     />
                 </>
                 : 
-                <StartButton
+                <StartScreen
                     start_game={start_game}
+                    score={score}
+                    high_score={high_score}
+                    new_high_score={new_high_score}
+                    first_time={first_time}
+                    difficulty={difficulty}
+                    set_difficulty={set_difficulty}
                 />
             }
         </div>
