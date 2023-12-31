@@ -1,0 +1,15 @@
+#background_container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: linear-gradient(to bottom, #61abff 50%, #0077ff 49%);
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    object-fit: contain;
+}

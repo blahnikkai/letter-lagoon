@@ -1,12 +1,8 @@
-.App {
-    padding: 5em;
-    height: 100vh;
-    width: 100%;
+#foreground {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--clr-dark);
     color: var(--clr-light);
     z-index: 0;
 }

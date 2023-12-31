@@ -30,6 +30,7 @@ select {
     font-size: 3em;
     padding: .5em;
     border-radius: .5em;
+    z-index: 100;
 }
 
 #start_btn:hover {

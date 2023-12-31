@@ -29,7 +29,7 @@ export default function StartScreen({
                 onSubmit={handle_submit}
             >
                 <div id='difficulty_container'>
-                    <label for='difficulty'>Difficulty:</label>
+                    <label htmlFor='difficulty'>Difficulty:</label>
                     <select 
                         name='difficulty' 
                         id='difficulty_select' 
