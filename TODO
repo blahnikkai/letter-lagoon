@@ -1,9 +1,9 @@
 Features
-* show score when game done
-* track high score
-* show high score when game done
-* add difficulty settings
-* add difficulty progression
+* Track different high scores for each difficulty
+* Store high scores in database to compare all players in certain time interval
+* Add initials of high score
+* Track multiple high scores (eg top 5)
+* Add pirate theming
 * Fix strict mode double rendering problem
 
 General

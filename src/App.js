@@ -79,7 +79,6 @@ export default function App() {
         if(Math.random() < THREE_LET_PROB)
             leng = 3
         let poss_enc = generate_enc(leng)
-        const min_seq_cnt = calc_min_seq_cnt()
         while(get_enc_cnt(poss_enc) < calc_min_seq_cnt())
             poss_enc = generate_enc(leng)
         set_sequence(decode(poss_enc))

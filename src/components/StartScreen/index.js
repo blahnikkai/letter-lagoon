@@ -17,27 +17,31 @@ export default function StartScreen({
 
     return (
         <div id='start_screen'>
-            <div className='start_screen_text'>Score: {score}</div>
-            <div className='start_screen_text'>High score: {high_score}</div>
+            {!first_time && <div className='start_screen_text'>Score: {score}</div>}
+            {!first_time && <div className='start_screen_text'>High score: {high_score}</div>}
             {new_high_score && 
                 <div className='start_screen_text'>
                     New high score!
                 </div>
             }
             <form
+                id='start_form'
                 onSubmit={handle_submit}
             >
-                <select 
-                    name='difficulty' 
-                    id='difficulty_select' 
-                    value={difficulty}
-                    onChange={handle_change}
-                >
-                    <option value='easy'>Easy</option>
-                    <option value='medium'>Medium</option>
-                    <option value='hard'>Hard</option>
-                    <option value='dynamic'>Dynamic</option>
-                </select>
+                <div id='difficulty_container'>
+                    <label for='difficulty'>Difficulty:</label>
+                    <select 
+                        name='difficulty' 
+                        id='difficulty_select' 
+                        value={difficulty}
+                        onChange={handle_change}
+                    >
+                        <option value='easy'>Easy</option>
+                        <option value='medium'>Medium</option>
+                        <option value='hard'>Hard</option>
+                        <option value='dynamic'>Dynamic</option>
+                    </select>
+                </div>
                 <input
                     type='submit'
                     id='start_btn'
