@@ -1,12 +1,32 @@
+@font-face {
+    font-family: 'pixel-pirate';
+    src: url('../public/images/pixel_font.ttf') format('truetype');
+  }
+
 .App {
-    padding: 5em;
-    height: 100vh;
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--clr-dark);
-    color: var(--clr-light);
-    z-index: 0;
+    color: var(--clr-dark);
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #61abff 50%, #0077ff 49%);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: var(--clr-dark);
+    position: relative;
+    width: 100%; /* Set the width as needed */
+    height: 0; /* This will be determined by the padding-bottom percentage */
+    padding-bottom: 50%; /* Adjust this to control the aspect ratio, e.g., 60% means 60% of the width */
+    overflow: hidden;
+    background-image: linear-gradient(to bottom, #61abff 50%, #0077ff 49%);
+}
+
+.App, input, button, select {
+    font-family: 'pixel-pirate';
 }

@@ -1,6 +1,6 @@
 #bonus_letter {
     margin: 5px;
-    background-color: var(--clr-light);
+    /* background-color: var(--clr-light); */
     color: var(--clr-dark);
     width: 20px;
     height: 20px;

@@ -26,10 +26,14 @@ export default function TimerBar({resetting, set_resetting, time_run_out}) {
     }, [resetting, timeout_id])
 
     return (
-        <div 
+        // <img id='timer_bar'  alt=''/>
+        <img
             id='timer_bar'
             ref={timer_bar}
-        >
-        </div>
+            src='images/prisoner.png'
+            alt=''
+        />
+            
+        // </div>
     )
 }

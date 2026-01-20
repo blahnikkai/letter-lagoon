@@ -1,9 +1,16 @@
 import "./Background.css"
 
-export default function Background() {
+export default function Background({playing}) {
   return (
     <div id='background_container'>
-        <img src='images/background.png' alt='' id='background'/>
+        <img
+            src={playing ? 
+                'images/background.png' 
+                : 'images/start_screen.png' 
+            }
+            alt='' 
+            id='background'
+        />
     </div>
   )
 }

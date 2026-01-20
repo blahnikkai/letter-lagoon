@@ -17,13 +17,15 @@ export default function StartScreen({
 
     return (
         <div id='start_screen'>
-            {!first_time && <div className='start_screen_text'>Score: {score}</div>}
-            {!first_time && <div className='start_screen_text'>High score: {high_score}</div>}
-            {new_high_score && 
-                <div className='start_screen_text'>
-                    New high score!
-                </div>
-            }
+            <div id='score'>
+                {!first_time && <div className='start_screen_text'>Score: {score}</div>}
+                {!first_time && <div className='start_screen_text'>High score: {high_score}</div>}
+                {new_high_score && 
+                    <div className='start_screen_text'>
+                        New high score!
+                    </div>
+                }
+            </div>
             <form
                 id='start_form'
                 onSubmit={handle_submit}
@@ -45,7 +47,7 @@ export default function StartScreen({
                 <input
                     type='submit'
                     id='start_btn'
-                    value={first_time ? 'Start Game' : 'Play Again'}
+                    value='Embark'
                 >
                 </input>
             </form>

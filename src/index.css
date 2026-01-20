@@ -5,6 +5,8 @@
     --clr-light-gray: #ccc;
     --clr-gray: #a8a8a8;
     --clr-red: #b80404;
+    margin: 0;
+    padding: 0;
 }
 
 body {

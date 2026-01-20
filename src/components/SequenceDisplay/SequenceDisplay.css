@@ -1,4 +1,7 @@
 #seq_txt {
-    color: var(--clr-light);
-    font-size: 3em;
+    font-size: 4em;
+    position: absolute;
+    top: 11%;
+    left: 19%;
+    transform: translate(-50%, -50%);
 }

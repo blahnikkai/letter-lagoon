@@ -145,29 +145,33 @@ export default function App() {
     }
     return (
         <div className='App'>
-            <Background/>
-            <Foreground
-                playing={playing}
-                resetting={resetting}
-                set_resetting={set_resetting}
-                time_run_out={time_run_out}
-                sequence={sequence}
-                answer={answer}
-                set_answer={set_answer}
-                submit_answer={submit_answer}
-                lives={lives}
-                score={score}
-                status={status}
-                set_status={set_status}
-                letters={LETTERS}
-                bonus_letters={bonus_letters}
-                start_game={start_game}
-                high_score={high_score}
-                new_high_score={new_high_score}
-                first_time={first_time}
-                difficulty={difficulty}
-                set_difficulty={set_difficulty}
-            />
+            <div className='container'>
+                <Background
+                    playing={playing}
+                />
+                <Foreground
+                    playing={playing}
+                    resetting={resetting}
+                    set_resetting={set_resetting}
+                    time_run_out={time_run_out}
+                    sequence={sequence}
+                    answer={answer}
+                    set_answer={set_answer}
+                    submit_answer={submit_answer}
+                    lives={lives}
+                    score={score}
+                    status={status}
+                    set_status={set_status}
+                    letters={LETTERS}
+                    bonus_letters={bonus_letters}
+                    start_game={start_game}
+                    high_score={high_score}
+                    new_high_score={new_high_score}
+                    first_time={first_time}
+                    difficulty={difficulty}
+                    set_difficulty={set_difficulty}
+                />
+            </div>
         </div>
     )
 }
